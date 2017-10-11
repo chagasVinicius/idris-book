@@ -1,19 +1,10 @@
-module Main
+module Average
 
-average : (str : String) -> Double
-average str = let numWords = wordCount str
-                  totalLength = sum (allLengths (words str)) in
-                  cast totalLength / cast numWords
+export
+average : String -> Double
+average str = let allLens = allLengths str
+                  totalLength = sum(allLens) in 
+                  cast totalLength / cast (length allLens)
   where 
-    wordCount : String -> Nat
-    wordCount str = length (words str)
-    
-    allLengths : List String -> List Nat
-    allLengths strs = map length strs 
-
-showAverage : String -> String 
-showAverage str = "The average word length is: " ++
-                  show (average str) ++ "\n"
-
-main : IO()
-main = repl "Enter a string: " showAverage
+    allLengths : String -> List Nat 
+    allLengths str = map length (words str)
